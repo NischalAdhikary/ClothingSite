@@ -13,6 +13,7 @@ import ProtectedRoute from "./routes/Protectedroute";
 import ProductMain from "./pages/Client/product/Main";
 import Productdetailmain from "./pages/Client/product/Productdetailmain";
 import AddressMain from "./pages/Client/useraddress/Main";
+import CheckoutMain from "./pages/Client/checkout/CheckoutMain";
 export default function App() {
   return (
     <Routes>
@@ -25,6 +26,7 @@ export default function App() {
           element={<ProductMain />}
         />
         <Route path="/user/profile/address" element={<AddressMain />} />
+        <Route path="/checkout" element={<CheckoutMain />} />
 
         <Route
           path="/product/:catgeory/:subcategory/:product"
