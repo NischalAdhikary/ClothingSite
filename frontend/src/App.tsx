@@ -12,17 +12,20 @@ import Main from "./pages/product/Main";
 import ProtectedRoute from "./routes/Protectedroute";
 import ProductMain from "./pages/Client/product/Main";
 import Productdetailmain from "./pages/Client/product/Productdetailmain";
-
+import AddressMain from "./pages/Client/useraddress/Main";
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<UserLayout />}>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
+
         <Route
           path="/product/:category/:subcategory?"
           element={<ProductMain />}
         />
+        <Route path="/user/profile/address" element={<AddressMain />} />
+
         <Route
           path="/product/:catgeory/:subcategory/:product"
           element={<Productdetailmain />}

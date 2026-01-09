@@ -21,7 +21,7 @@ export default function OptionMenu({
   return (
     <div
       ref={divRef}
-      className="absolute right-[-30px] rounded min-w-[100px] w-auto top-[50px] bg-red-50 flex flex-col    h-auto "
+      className="absolute right-[-30px] rounded min-w-[150px] w-auto top-[50px] bg-red-50 flex flex-col    h-auto "
     >
       {children}
     </div>

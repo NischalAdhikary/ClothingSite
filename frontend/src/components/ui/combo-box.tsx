@@ -28,6 +28,12 @@ export function ComboboxDemo({
   setValue,
 }) {
   const [open, setOpen] = React.useState(false);
+  const normalizedItems = items?.map((i) => {
+    if (typeof i === "string") {
+      return { id: i, name: i };
+    }
+    return i;
+  });
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -42,7 +48,9 @@ export function ComboboxDemo({
   break-words
 "
         >
-          {value ? items?.find((item) => item.id === value)?.name : placeholder}
+          {value
+            ? normalizedItems?.find((item) => item.id === value)?.name
+            : placeholder}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -56,7 +64,7 @@ export function ComboboxDemo({
                 {loading ? (
                   <Loader2 className="mx-auto my-4 animate-spin" />
                 ) : (
-                  items.map((item) => (
+                  normalizedItems.map((item) => (
                     <CommandItem
                       key={item.id}
                       value={item.name}
@@ -65,7 +73,7 @@ export function ComboboxDemo({
                         setOpen(false);
                       }}
                     >
-                      {item.name}
+                      {item?.name || item}
                       <Check
                         className={cn(
                           "ml-auto",
