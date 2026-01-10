@@ -8,6 +8,7 @@ import productRoute from './routes/product.route.js';
 import categoryRoute from './routes/cat.route.js';
 import vairantRoute from './routes/variant.route.js';
 import homeRoute from './routes/home/nav.route.js';
+import ShippingRoute from './routes/user.route.js';
 const app = express();
 
 app.use(express.json());
@@ -34,6 +35,7 @@ app.use('/api/v1/product', productRoute);
 app.use('/api/v1/category', categoryRoute);
 app.use('/api/v1/variant', vairantRoute);
 app.use('/api/v1/home', homeRoute);
+app.use('/api/v1/user/userdetails', ShippingRoute);
 app.use((req, res, next) => next({ status: 404, message: 'route not found' }));
 app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
   const status = (err as { status?: number }).status || 500;

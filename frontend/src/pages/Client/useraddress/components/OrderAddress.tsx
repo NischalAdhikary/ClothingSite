@@ -69,9 +69,14 @@ const provinces = {
   ],
 };
 
-export default function OrderAddress({ userDeatil, setDetail }) {
+export default function OrderAddress({
+  userDetail,
+  setDetail,
+  onClose,
+  onSubmit,
+}) {
   const provincelist = Object.keys(provinces);
-  const cityList = !!userDeatil.province ? provinces[userDeatil.province] : [];
+  const cityList = !!userDetail.province ? provinces[userDetail.province] : [];
 
   return (
     <div className=" w-full md:w-1/2 md:min-w-[400px] p-8 bg-white rounded-lg shadow-md border border-gray-200">
@@ -95,10 +100,10 @@ export default function OrderAddress({ userDeatil, setDetail }) {
             </label>
             <Input
               id="fullName"
-              value={userDeatil.fullname}
+              value={userDetail.fullname}
               placeholder="Full Name"
               onChange={(e) =>
-                setDetail({ ...userDeatil, fullname: e.target.value })
+                setDetail({ ...userDetail, fullname: e.target.value })
               }
               className="w-full"
             />
@@ -113,10 +118,10 @@ export default function OrderAddress({ userDeatil, setDetail }) {
             </label>
             <Input
               id="phone"
-              value={userDeatil.phone}
+              value={userDetail.phone}
               type="tel"
               onChange={(e) =>
-                setDetail({ ...userDeatil, phone: e.target.value })
+                setDetail({ ...userDetail, phone: e.target.value })
               }
               placeholder="+977 98XXXXXXXX"
               className="w-full"
@@ -134,9 +139,9 @@ export default function OrderAddress({ userDeatil, setDetail }) {
             </label>
             <Input
               id="address1"
-              value={userDeatil.address1}
+              value={userDetail.address1}
               onChange={(e) =>
-                setDetail({ ...userDeatil, address1: e.target.value })
+                setDetail({ ...userDetail, address1: e.target.value })
               }
               placeholder="e.g.,City,Tole"
               className="w-full"
@@ -153,9 +158,9 @@ export default function OrderAddress({ userDeatil, setDetail }) {
             <Input
               id="address2"
               onChange={(e) =>
-                setDetail({ ...userDeatil, address2: e.target.value })
+                setDetail({ ...userDetail, address2: e.target.value })
               }
-              value={userDeatil.address2}
+              value={userDetail.address2}
               placeholder="Optional"
               className="w-full"
             />
@@ -171,10 +176,10 @@ export default function OrderAddress({ userDeatil, setDetail }) {
               Province <span className="text-red-500">*</span>
             </label>
             <ComboboxDemo
-              value={userDeatil.province}
+              value={userDetail.province}
               items={provincelist}
               setValue={(val) =>
-                setDetail({ ...userDeatil, province: val, city: "" })
+                setDetail({ ...userDetail, province: val, city: "" })
               }
               notfound={"No province found"}
               placeholder="Select province"
@@ -189,9 +194,9 @@ export default function OrderAddress({ userDeatil, setDetail }) {
               City <span className="text-red-500">*</span>
             </label>
             <ComboboxDemo
-              value={userDeatil.city}
+              value={userDetail.city}
               items={cityList}
-              setValue={(val) => setDetail({ ...userDeatil, city: val })}
+              setValue={(val) => setDetail({ ...userDetail, city: val })}
               placeholder="Select city"
               notfound={"No city found"}
             />
@@ -208,16 +213,21 @@ export default function OrderAddress({ userDeatil, setDetail }) {
           <Input
             id="postalCode"
             onChange={(e) =>
-              setDetail({ ...userDeatil, postalcode: e.target.value })
+              setDetail({ ...userDetail, postalcode: e.target.value })
             }
-            value={userDeatil.postalcode}
+            value={userDetail.postalcode}
             placeholder="e.g., 44600"
             className="w-full max-w-xs"
           />
         </div>
 
-        <div className="flex gap-4 pt-4">
-          <Button className="px-6">Save Address</Button>
+        <div className="flex gap-4 justify-end pt-4">
+          <Button onClick={() => onSubmit()} className="px-6">
+            Save Address
+          </Button>
+          <Button onClick={() => onClose()} className="bg-gray-200 text-black">
+            Cancel
+          </Button>
         </div>
       </div>
     </div>

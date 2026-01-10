@@ -9,14 +9,13 @@ interface ProtectedRouteProps {
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user } = useAuth();
-  console.log("user available", user);
+
   // useEffect(() => {
   //   if (!user || user.role !== "admin") {
   //     navigate("/");
   //   }
   // }, [navigate, user]);
 
-  console.log(user?.role);
   if (!user || user.role !== "admin") {
     return <Navigate to="/" />;
   }

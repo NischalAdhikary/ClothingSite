@@ -32,3 +32,24 @@ export const createAuthProvider = async (userId: string, provider: string, provi
   const result = await pool.query(query, values);
   return result.rows[0];
 };
+export const createUserShippingDetails = async (data) => {
+  const query = `INSERT INTO useraddress (user_id,fullname,phone,address_line_1,address_line_2,province,city,postal_code) VALUES
+  ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`;
+  const values = [
+    data.user_id,
+    data.fullname,
+    data.phone,
+    data.address1,
+    data.address2,
+    data.province,
+    data.city,
+    data.postalcode,
+  ];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+export const getUserShippingDetails = async (id: string) => {
+  const query = `SELECT fullname as fullname,phone as phone,address_line_1 as address1,address_line_2 as address2,province as province,city as city,postal_code as postalcode FROM useraddress where user_id=$1`;
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
+};

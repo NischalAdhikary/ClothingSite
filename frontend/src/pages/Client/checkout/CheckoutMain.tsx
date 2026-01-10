@@ -3,18 +3,23 @@ import { Card } from "@/components/ui/card";
 import CartCard from "@/features/cart/CartCard";
 import { MapPin } from "lucide-react";
 import { useCart } from "@/hooks/useCarts";
+import useGetUserDetails from "@/hooks/useGetUserDeatails";
+import Main from "../useraddress/Main";
+import { useState } from "react";
+import Loading from "@/components/layers/Loading";
 
 export default function CheckoutMain() {
   const { carts } = useCart();
+  const [editModal, setEditModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
+  const { getUserDetail } = useGetUserDetails();
+  const userDetailLoading = getUserDetail.isLoading;
+  if (userDetailLoading) {
+    return <Loading />;
+  }
 
-  const userdetails = true;
-  const user = {
-    fullname: "NischalAdhikari",
-    province: "Koshi",
-    city: "Biratnagar",
-    phone: "9800000000",
-    address1: "Bargachi,jamungachi",
-  };
+  const userdetails = getUserDetail.data.data;
+
   return (
     <div className="w-full h-auto p-0 md:p-10 ">
       <div className="container mx-auto w-full md:max-w-5xl bg-gray-100 p-6 flex flex-col gap-8">
@@ -25,13 +30,13 @@ export default function CheckoutMain() {
                 <MapPin size={18} />
                 <span>
                   {" "}
-                  {user.fullname}, {user.phone}
+                  {userdetails.fullname}, {userdetails.phone}
                 </span>
               </h1>
-              <Button>Edit</Button>
+              <Button onClick={() => setEditModal(true)}>Edit</Button>
             </div>
             <p className="text-sm font-medium font-primary">
-              {user.address1},{user.province},{user.city}
+              {userdetails.address1},{userdetails.province},{userdetails.city}
             </p>
           </div>
         ) : (
@@ -42,7 +47,7 @@ export default function CheckoutMain() {
               </span>
               Add User Deatils For Shipping the Products
             </h1>
-            <Button>Add</Button>
+            <Button onClick={() => setAddModal(true)}>Add</Button>
           </div>
         )}
         <div className="bg-white rounded shadow-sm space-y-8 p-4">
@@ -71,6 +76,22 @@ export default function CheckoutMain() {
           </div>
         </div>
         <Button>Procced</Button>
+        {editModal && (
+          <Main
+            edit={true}
+            data={userdetails}
+            onClose={() => setEditModal(false)}
+          />
+        )}
+        {addModal && (
+          <Main
+            edit={false}
+            data={userdetails}
+            onClose={() => {
+              setAddModal(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );

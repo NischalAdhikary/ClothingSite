@@ -14,6 +14,7 @@ import ProductMain from "./pages/Client/product/Main";
 import Productdetailmain from "./pages/Client/product/Productdetailmain";
 import AddressMain from "./pages/Client/useraddress/Main";
 import CheckoutMain from "./pages/Client/checkout/CheckoutMain";
+import LoggedUser from "./routes/LoggedUser";
 export default function App() {
   return (
     <Routes>
@@ -26,7 +27,14 @@ export default function App() {
           element={<ProductMain />}
         />
         <Route path="/user/profile/address" element={<AddressMain />} />
-        <Route path="/checkout" element={<CheckoutMain />} />
+        <Route
+          path="/checkout"
+          element={
+            <LoggedUser>
+              <CheckoutMain />
+            </LoggedUser>
+          }
+        />
 
         <Route
           path="/product/:catgeory/:subcategory/:product"
