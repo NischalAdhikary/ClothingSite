@@ -21,6 +21,5 @@ export const deleteVariantByID = async (id: string) => {
   const query = `DELETE FROM productvariants WHERE id=$1 RETURNING *`;
   const values = [id];
   const result = await pool.query(query, values);
-
   return result.rows[0];
 };

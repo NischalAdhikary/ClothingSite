@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import Cart from "@/features/cart/Cart";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import OptionMenu from "../ui/option-menu";
 import { Button } from "../ui/button";
 import { useNavItems } from "@/hooks/useNavItems";
@@ -196,9 +196,12 @@ export default function Navbar() {
               <User size={26} onClick={handleUserClick} />
               {isOpen && (
                 <OptionMenu onClose={() => setIsOpen(false)}>
+                  <Button className="rounded-none  bg-white hover:bg-gray-100 text-black shadow-md">
+                    <Link to={"/user/profile/address"}>Profile</Link>
+                  </Button>
                   <Button
                     onClick={handleLogOut}
-                    className="rounded-none bg-gray-100 hover:bg-ggray-300 text-black shadow-md"
+                    className="rounded-none bg-white hover:bg-gray-100  text-black shadow-md"
                   >
                     Logout
                   </Button>

@@ -18,3 +18,9 @@ export const getUserClientId = (id: UUID) => {
 export const createAuthProvider = (userId: string, provider: string, providerId: string) => {
   return userRepo.createAuthProvider(userId, provider, providerId);
 };
+export const createShippingAddress = (data) => {
+  return userRepo.createUserShippingDetails(data);
+};
+export const getShippingAddress = (id) => {
+  return userRepo.getUserShippingDetails(id);
+};
