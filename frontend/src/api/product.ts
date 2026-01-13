@@ -42,6 +42,7 @@ export const updateProduct = async (payload) => {
   return response.data;
 };
 export const fetchProuctDetailsClient = async (id: string | null) => {
+  console.log("hiii");
   const response = await api.get(`/product/details/${id}`);
   return response.data.data;
 };
