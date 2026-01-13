@@ -12,7 +12,7 @@ import Main from "./pages/product/Main";
 import ProtectedRoute from "./routes/Protectedroute";
 import ProductMain from "./pages/Client/product/Main";
 import Productdetailmain from "./pages/Client/product/Productdetailmain";
-import AddressMain from "./pages/Client/useraddress/Main";
+
 import CheckoutMain from "./pages/Client/checkout/CheckoutMain";
 import LoggedUser from "./routes/LoggedUser";
 export default function App() {
@@ -21,12 +21,15 @@ export default function App() {
       <Route path="/" element={<UserLayout />}>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
-
+        <Route
+          path="/product/detail/:product"
+          element={<Productdetailmain />}
+        />
         <Route
           path="/product/:category/:subcategory?"
           element={<ProductMain />}
         />
-        <Route path="/user/profile/address" element={<AddressMain />} />
+
         <Route
           path="/checkout"
           element={
@@ -34,11 +37,6 @@ export default function App() {
               <CheckoutMain />
             </LoggedUser>
           }
-        />
-
-        <Route
-          path="/product/:catgeory/:subcategory/:product"
-          element={<Productdetailmain />}
         />
       </Route>
       <Route path="/auth/success/" element={<Authsuccess />} />

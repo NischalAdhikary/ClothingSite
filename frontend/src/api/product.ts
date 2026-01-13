@@ -46,3 +46,12 @@ export const fetchProuctDetailsClient = async (id: string | null) => {
   const response = await api.get(`/product/details/${id}`);
   return response.data.data;
 };
+export const fetchClientProducts = async (category, subcategory) => {
+  let url = `/product/client?category=${category}`;
+
+  if (subcategory) {
+    url += `&subcategory=${subcategory}`;
+  }
+  const result = await api.get(url);
+  return result.data;
+};

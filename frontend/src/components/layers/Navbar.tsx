@@ -97,11 +97,11 @@ export default function Navbar() {
     navigate(`/product/${catgeorySlug}/${subCategorySlug}`);
   };
   const onProductClick = (obj) => {
-    const { item, sub: cat, prod: product } = obj;
-    const catgeorySlug = item.label + "-" + item.id;
-    const subCategorySlug = cat.label + "-" + cat.id;
+    const { prod: product } = obj;
+    console.log("yoo", obj);
     const productSlug = product.name + "-" + product.id;
-    navigate(`/product/${catgeorySlug}/${subCategorySlug}/${productSlug}`);
+    console.log(productSlug);
+    navigate(`/product/detail/${productSlug}`);
   };
   return (
     <>
