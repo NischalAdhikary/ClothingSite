@@ -542,7 +542,31 @@ where pv.product_id=$1`;
     variants: fromattedVariants,
   });
 });
+const getClientProducts = asyncHandler(async (req: Request, res: Response) => {
+  const { category, subcategory } = req.query;
+  const values = [];
+  let index = 1;
+  const condition = [];
 
+  if (!category) {
+    return SendErrorResponse(res, 400, false, 'Category is needed');
+  }
+  values.push(category);
+  condition.push(`c.id=$${index++}`);
+  if (subcategory) {
+    condition.push(`sc.id=$${index++}`);
+    values.push(subcategory);
+  }
+
+  const whereClause = condition.length > 0 ? `WHERE ` + condition.join(' AND ') : '';
+  const productQuery = `SELECT p.id as id, p.name as name, p.description as description, p.price as price from products p
+  JOIN subcategories sc ON p.subcategory_id = sc.id JOIN categories c ON c.id=sc.category_id ${whereClause}`;
+  const product = (await pool.query(productQuery, values)).rows;
+  if (product.length === 0) {
+    return SendResponse(res, 200, true, 'No product available', product);
+  }
+  return SendResponse(res, 200, true, 'Product fetched successfully', product);
+});
 export {
   createProduct,
   getProducts,
@@ -554,4 +578,5 @@ export {
   updateProductDetails,
   getProductClient,
   productDetailsClient,
+  getClientProducts,
 };
