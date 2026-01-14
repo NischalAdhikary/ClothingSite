@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 interface SidePanelProps {
   position?: "left" | "right";
   children?: React.ReactNode;
