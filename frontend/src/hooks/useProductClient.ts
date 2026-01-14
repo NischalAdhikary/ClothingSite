@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchClientProducts } from "@/api/product";
-export default function useProductClient(category, subcategory) {
+export default function useProductClient(category, subcategory, filter) {
   const getProductClient = useQuery({
-    queryKey: ["client-product", category, subcategory],
-    queryFn: () => fetchClientProducts(category, subcategory),
-    enabled: !!category || !!subcategory,
+    queryKey: ["client-product", category, subcategory, filter],
+    queryFn: () => fetchClientProducts(category, subcategory, filter),
+    enabled: !!category || !!subcategory || filter,
   });
   return {
     getProductClient,

@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Productcard({ name, description, price, id }) {
   const navigate = useNavigate();
+  const productId = `${name}-${id}`;
 
   return (
     <Card
-      onClick={() => navigate("")}
+      onClick={() => navigate(`/product/detail/${productId}`)}
       className="shadow-lg rounded cursor-pointer max-w-[320px]"
     >
       <CardContent className="p-0 max-h-[550px]">
