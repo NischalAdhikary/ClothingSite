@@ -10,8 +10,11 @@ export default function Productdetailmain() {
   });
 
   const { product } = useParams();
+  console.log("niggaa fk", product);
   const splitproduct = product?.indexOf("-");
+
   const productId = product?.slice(splitproduct + 1);
+  console.log("nigga", productId);
   const { getProductDetails } = useProductDetails(productId || null);
   const variants = getProductDetails?.data?.variants;
 

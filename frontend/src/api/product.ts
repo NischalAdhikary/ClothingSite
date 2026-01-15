@@ -42,6 +42,20 @@ export const updateProduct = async (payload) => {
   return response.data;
 };
 export const fetchProuctDetailsClient = async (id: string | null) => {
+  console.log("hiii");
   const response = await api.get(`/product/details/${id}`);
   return response.data.data;
+};
+export const fetchClientProducts = async (category, subcategory, filter) => {
+  let url = `/product/client?category=${category}`;
+
+  if (subcategory) {
+    url += `&subcategory=${subcategory}`;
+  }
+  if (filter) {
+    url += `&filter=${filter}`;
+  }
+  console.log("final url", url);
+  const result = await api.get(url);
+  return result.data;
 };

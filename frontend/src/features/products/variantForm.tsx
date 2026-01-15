@@ -35,12 +35,23 @@ export default function VariantForm({
     color_id: "",
     quantity: 0,
   });
-  console.log(variants);
 
   const [editIndex, setEditIndex] = useState(null);
 
   const onAddClick = () => {
     const { color_id, size_id, quantity } = solovariant;
+    const exist = variants?.some((v) => {
+      if (v.color_id === color_id && v.size_id === size_id) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    if (exist) {
+      console.log("cant procced this variant already exists");
+      return;
+    }
+
     if (color_id && size_id && quantity > 0) {
       setVariants((prev) => [
         ...prev,

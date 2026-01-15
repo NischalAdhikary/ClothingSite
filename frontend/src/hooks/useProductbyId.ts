@@ -20,13 +20,13 @@ export default function useProductById(
     queryFn: () => fetchProductVariantById(id),
     enabled: isOpen && !!id && type === "productvariant",
   });
-  const getProductDetails = useQuery({
-    queryKey: ["productdetails", id],
-    queryFn: () => fetchProuctDetailsClient(id),
-  });
+  // const getProductDetails = useQuery({
+  //   queryKey: ["productdetails", id],
+  //   queryFn: () => fetchProuctDetailsClient(id),
+  // });
   return {
     getProductById,
     getProductVariantById,
-    getProductDetails,
+    // getProductDetails,
   };
 }

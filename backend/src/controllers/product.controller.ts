@@ -542,7 +542,42 @@ where pv.product_id=$1`;
     variants: fromattedVariants,
   });
 });
+const getClientProducts = asyncHandler(async (req: Request, res: Response) => {
+  const { category, subcategory, filter } = req.query;
+  console.log(filter);
 
+  const filterFields = [
+    { value: 'price_asc', query: 'ORDER BY p.price ASC' },
+    { value: 'price_desc', query: 'ORDER BY p.price DESC' },
+    { value: 'date_asc', query: 'ORDER BY p.created_at ASC' },
+    { value: 'date_desc', query: 'ORDER BY p.created_at DESC' },
+  ];
+
+  const values = [];
+  let index = 1;
+  const condition = [];
+
+  if (!category) {
+    return SendErrorResponse(res, 400, false, 'Category is needed');
+  }
+  values.push(category);
+  condition.push(`c.id=$${index++}`);
+  if (subcategory) {
+    condition.push(`sc.id=$${index++}`);
+    values.push(subcategory);
+  }
+
+  const whereClause = condition.length > 0 ? `WHERE ` + condition.join(' AND ') : '';
+  const filterClause = filter ? filterFields.find((f) => f.value === filter)?.query : '';
+  const productQuery = `SELECT p.id as id, p.name as name, p.description as description, p.price as price from products p
+  JOIN subcategories sc ON p.subcategory_id = sc.id JOIN categories c ON c.id=sc.category_id ${whereClause} ${filterClause}`;
+  console.log('final query', productQuery);
+  const product = (await pool.query(productQuery, values)).rows;
+  if (product.length === 0) {
+    return SendResponse(res, 200, true, 'No product available', product);
+  }
+  return SendResponse(res, 200, true, 'Product fetched successfully', product);
+});
 export {
   createProduct,
   getProducts,
@@ -554,4 +589,5 @@ export {
   updateProductDetails,
   getProductClient,
   productDetailsClient,
+  getClientProducts,
 };

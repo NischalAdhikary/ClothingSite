@@ -22,7 +22,6 @@ export default function AddProduct({ onClose, product }) {
   const { updateProductMutation } = useProductMutation();
 
   const isEditable = product ? true : false;
-  console.log(isEditable);
 
   const [currentTab, setcurrentTab] = useState("general");
   const [visitedTab, setVisitedTab] = useState(
@@ -116,7 +115,6 @@ export default function AddProduct({ onClose, product }) {
   const onEditClick = async () => {
     const generalUpdated = {};
 
-    console.log(generalUpdated);
     const currentTabIndex = productLabel.findIndex(
       (i) => i.value === currentTab
     );
